@@ -1,20 +1,20 @@
 # Modules
-":floppy_disk: quicksight-folder":
+":floppy_disk: folder":
 - changed-files:
   - any-glob-to-any-file:
-    - modules/quicksight-folder/**/*
+    - modules/folder/**/*
 
-":floppy_disk: quicksight-group":
+":floppy_disk: group":
 - changed-files:
   - any-glob-to-any-file:
-    - modules/quicksight-group/**/*
+    - modules/group/**/*
 
-":floppy_disk: quicksight-namespace":
+":floppy_disk: namespace":
 - changed-files:
   - any-glob-to-any-file:
-    - modules/quicksight-namespace/**/*
+    - modules/namespace/**/*
 
-":floppy_disk: quicksight-vpc-connection":
+":floppy_disk: vpc-connection":
 - changed-files:
   - any-glob-to-any-file:
-    - modules/quicksight-vpc-connection/**/*
+    - modules/vpc-connection/**/*

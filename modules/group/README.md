@@ -1,4 +1,4 @@
-# quicksight-group
+# group
 
 This module creates following resources.
 

@@ -1,4 +1,4 @@
-# quicksight-folder
+# folder
 
 This module creates following resources.
 

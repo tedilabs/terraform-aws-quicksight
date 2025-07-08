@@ -6,10 +6,10 @@
 
 Terraform module which creates data related resources on AWS.
 
-- [quicksight-folder](./modules/quicksight-folder)
-- [quicksight-group](./modules/quicksight-group)
-- [quicksight-namespace](./modules/quicksight-namespace)
-- [quicksight-vpc-connection](./modules/quicksight-vpc-connection)
+- [folder](./modules/folder)
+- [group](./modules/group)
+- [namespace](./modules/namespace)
+- [vpc-connection](./modules/vpc-connection)
 
 
 ## Target AWS Services

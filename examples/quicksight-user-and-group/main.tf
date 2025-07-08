@@ -8,8 +8,8 @@ provider "aws" {
 ###################################################
 
 module "namespace__3rd_party" {
-  source = "../../modules/quicksight-namespace"
-  # source  = "tedilabs/quicksight/aws//modules/quicksight-namespace"
+  source = "../../modules/namespace"
+  # source  = "tedilabs/quicksight/aws//modules/namespace"
   # version = "~> 0.3.0"
 
   name           = "3rd-party"
@@ -26,8 +26,8 @@ module "namespace__3rd_party" {
 ###################################################
 
 module "group__dev" {
-  source = "../../modules/quicksight-group"
-  # source  = "tedilabs/quicksight/aws//modules/quicksight-group"
+  source = "../../modules/group"
+  # source  = "tedilabs/quicksight/aws//modules/group"
   # version = "~> 0.3.0"
 
   name        = "dev"
@@ -38,8 +38,8 @@ module "group__dev" {
 }
 
 module "group__ops" {
-  source = "../../modules/quicksight-group"
-  # source  = "tedilabs/quicksight/aws//modules/quicksight-group"
+  source = "../../modules/group"
+  # source  = "tedilabs/quicksight/aws//modules/group"
   # version = "~> 0.3.0"
 
   name        = "ops"
@@ -50,8 +50,8 @@ module "group__ops" {
 }
 
 module "group__3rd_party" {
-  source = "../../modules/quicksight-group"
-  # source  = "tedilabs/quicksight/aws//modules/quicksight-group"
+  source = "../../modules/group"
+  # source  = "tedilabs/quicksight/aws//modules/group"
   # version = "~> 0.3.0"
 
   name        = "3rd-party"

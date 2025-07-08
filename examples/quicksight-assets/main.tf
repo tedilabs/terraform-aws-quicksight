@@ -8,8 +8,8 @@ provider "aws" {
 ###################################################
 
 module "folder__dev" {
-  source = "../../modules/quicksight-folder"
-  # source  = "tedilabs/quicksight/aws//modules/quicksight-folder"
+  source = "../../modules/folder"
+  # source  = "tedilabs/quicksight/aws//modules/folder"
   # version = "~> 0.5.0"
 
   name          = "dev"
@@ -30,8 +30,8 @@ module "folder__dev" {
 }
 
 module "folder__test" {
-  source = "../../modules/quicksight-folder"
-  # source  = "tedilabs/quicksight/aws//modules/quicksight-folder"
+  source = "../../modules/folder"
+  # source  = "tedilabs/quicksight/aws//modules/folder"
   # version = "~> 0.5.0"
 
   name          = "test"

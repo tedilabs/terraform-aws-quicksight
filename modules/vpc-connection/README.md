@@ -1,4 +1,4 @@
-# quicksight-vpc-connection
+# vpc-connection
 
 This module creates following resources.
 

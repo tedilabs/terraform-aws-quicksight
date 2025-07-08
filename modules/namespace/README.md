@@ -1,4 +1,4 @@
-# quicksight-namespace
+# namespace
 
 This module creates following resources.
 
