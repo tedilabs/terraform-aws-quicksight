@@ -41,6 +41,9 @@
 
 # Modules
 - color: "fbca04"
+  description: "This issue or pull request is related to data-source-aurora-postgresql module."
+  name: ":floppy_disk: data-source-aurora-postgresql"
+- color: "fbca04"
   description: "This issue or pull request is related to folder module."
   name: ":floppy_disk: folder"
 - color: "fbca04"

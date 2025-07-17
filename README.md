@@ -6,6 +6,7 @@
 
 Terraform module which creates data related resources on AWS.
 
+- [data-source-aurora-postgresql](./modules/data-source-aurora-postgresql)
 - [folder](./modules/folder)
 - [group](./modules/group)
 - [namespace](./modules/namespace)
@@ -17,6 +18,8 @@ Terraform module which creates data related resources on AWS.
 Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-quicksight) were written to manage the following AWS Services with Terraform.
 
 - **AWS QuickSight**
+  - Data Sources
+    - Aurora PostgreSQL
   - Folder
   - Group & Group Membership
   - Namespace
