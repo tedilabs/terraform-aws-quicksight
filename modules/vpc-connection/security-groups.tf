@@ -20,6 +20,12 @@ module "security_group" {
   description = var.default_security_group.description
   vpc_id      = local.vpc_id
 
+  ingress_rules = [
+    for i, rule in var.default_security_group.ingress_rules :
+    merge(rule, {
+      id = coalesce(rule.id, "quicksight-vpc-connection-${i}")
+    })
+  ]
   egress_rules = [
     for i, rule in var.default_security_group.egress_rules :
     merge(rule, {
