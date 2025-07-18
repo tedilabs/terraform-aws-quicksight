@@ -51,7 +51,10 @@ resource "aws_quicksight_folder" "this" {
 
     content {
       principal = permission.value.principal
-      actions   = try(local.role_actions[permission.value.role], permission.value.actions)
+      actions = (permission.value.role != null
+        ? local.role_actions[permission.value.role]
+        : permission.value.actions
+      )
     }
   }
 
