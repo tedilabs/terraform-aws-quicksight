@@ -18,6 +18,22 @@ data "aws_caller_identity" "this" {}
 
 locals {
   account_id = data.aws_caller_identity.this.account_id
+
+  role_actions = {
+    "OWNER" = [
+      "quicksight:PassDataSource",
+      "quicksight:DescribeDataSourcePermissions",
+      "quicksight:UpdateDataSource",
+      "quicksight:UpdateDataSourcePermissions",
+      "quicksight:DescribeDataSource",
+      "quicksight:DeleteDataSource",
+    ]
+    "USER" = [
+      "quicksight:PassDataSource",
+      "quicksight:DescribeDataSourcePermissions",
+      "quicksight:DescribeDataSource",
+    ]
+  }
 }
 
 
@@ -55,14 +71,6 @@ resource "aws_quicksight_data_source" "this" {
     secret_arn      = var.credentials.type == "SECRETS_MANAGER" ? var.credentials.secrets_manager_secret : null
   }
 
-  dynamic "permission" {
-    for_each = var.permissions
-    content {
-      actions   = permission.value.actions
-      principal = permission.value.principal
-    }
-  }
-
 
   ## Network
   dynamic "vpc_connection_properties" {
@@ -76,6 +84,21 @@ resource "aws_quicksight_data_source" "this" {
   ssl_properties {
     disable_ssl = !var.ssl.enabled
   }
+
+
+  ## Access Control
+  dynamic "permission" {
+    for_each = var.permissions
+
+    content {
+      principal = permission.value.principal
+      actions = (permission.value.role != null
+        ? local.role_actions[permission.value.role]
+        : permission.value.actions
+      )
+    }
+  }
+
 
   tags = merge(
     {

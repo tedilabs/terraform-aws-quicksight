@@ -80,13 +80,18 @@ variable "credentials" {
 
 variable "permissions" {
   description = <<EOF
-  (Optional) A list of resource permissions on the data source. Maximum of 64 items. Each `permission` block as defined below.
-    (Required) `actions` - Set of IAM actions to grant or revoke permissions on. Maximum of 16 items.
-    (Required) `principal` - The Amazon Resource Name (ARN) of the principal.
+  (Optional) A list of resource permissions on the data source. Maximum of 64 items. Each item of `permissions` as defined below.
+    (Required) `principal` - The Amazon Resource Name (ARN) of the principal. This can be one of the following:
+      - The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)
+      - The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)
+      - The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight ARN. Use this option only to share resources (templates) across Amazon Web Services accounts. (This is less common.)
+    (Optional) `role` - A role of principal with a pre-defined set of permissions. Valid values are `OWNER` and `USER`. Conflicting with `actions`.
+    (Optional) `actions` - A set of IAM actions to grant or revoke permissions on. Maximum of 16 items. Conflicting with `role`.
   EOF
   type = list(object({
-    actions   = set(string)
     principal = string
+    role      = optional(string)
+    actions   = optional(set(string), [])
   }))
   default  = []
   nullable = false
@@ -95,7 +100,13 @@ variable "permissions" {
     condition     = length(var.permissions) <= 64
     error_message = "Maximum of 64 permissions can be specified."
   }
-
+  validation {
+    condition = alltrue([
+      for permission in var.permissions :
+      contains(["OWNER", "USER"], permission.role) || length(permission.actions) > 0
+    ])
+    error_message = "Valid values for `permission.role` are `OWNER` and `USER`. If `role` is not set, then `actions` must be specified."
+  }
   validation {
     condition = alltrue([
       for permission in var.permissions :

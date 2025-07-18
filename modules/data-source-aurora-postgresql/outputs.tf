@@ -71,10 +71,15 @@ output "connection_string" {
   value       = "${var.parameters.host}:${var.parameters.port}/${var.parameters.database}"
 }
 
+output "permissions" {
+  description = "The permissions associated with the QuickSight data source."
+  value       = aws_quicksight_data_source.this.permission
+}
+
 # output "debug" {
 #   value = {
 #     for k, v in aws_quicksight_data_source.this :
 #     k => v
-#     if !contains(["aws_account_id", "arn", "id", "name", "data_source_id", "tags", "tags_all", "type", "vpc_connection_properties", "ssl_properties", "parameters", "credentials"], k)
+#     if !contains(["aws_account_id", "arn", "id", "name", "data_source_id", "tags", "tags_all", "type", "vpc_connection_properties", "ssl_properties", "parameters", "credentials", "permission"], k)
 #   }
 # }
