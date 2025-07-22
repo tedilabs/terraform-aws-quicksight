@@ -4,8 +4,20 @@ variable "name" {
   nullable    = false
 }
 
+variable "type" {
+  description = "(Optional) The type of the QuickSight group. Valid values are `INTERNAL` and `EXTERNAL`. Defaults to `INTERNAL`. `EXTERNAL` for the Active Directory or IAM Identity Center authentication method."
+  type        = string
+  default     = "INTERNAL"
+  nullable    = false
+
+  validation {
+    condition     = contains(["INTERNAL", "EXTERNAL"], var.type)
+    error_message = "The type must be either `INTERNAL` or `EXTERNAL`."
+  }
+}
+
 variable "description" {
-  description = "(Optional) A description for the QuickSight group."
+  description = "(Optional) A description for the QuickSight group. Only applicable for `INTERNAL` type groups."
   type        = string
   default     = "Managed by Terraform."
   nullable    = false

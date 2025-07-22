@@ -1,26 +1,31 @@
 output "id" {
   description = "The ID of the QuickSight group."
-  value       = aws_quicksight_group.this.id
+  value       = local.group.id
 }
 
 output "arn" {
   description = "The ARN of the QuickSight group."
-  value       = aws_quicksight_group.this.arn
+  value       = local.group.arn
 }
 
 output "name" {
   description = "The name of the QuickSight group."
-  value       = aws_quicksight_group.this.group_name
+  value       = local.group.group_name
+}
+
+output "type" {
+  description = "The type of the QuickSight group."
+  value       = var.type
 }
 
 output "description" {
   description = "The description of the QuickSight group."
-  value       = aws_quicksight_group.this.description
+  value       = local.group.description
 }
 
 output "namespace" {
   description = "The namespace that the group belongs to."
-  value       = aws_quicksight_group.this.namespace
+  value       = local.group.namespace
 }
 
 output "members" {

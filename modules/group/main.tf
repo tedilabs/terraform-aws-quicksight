@@ -19,6 +19,8 @@ locals {
 ###################################################
 
 resource "aws_quicksight_group" "this" {
+  count = var.type == "INTERNAL" ? 1 : 0
+
   namespace   = var.namespace
   group_name  = var.name
   description = var.description
@@ -26,11 +28,24 @@ resource "aws_quicksight_group" "this" {
   aws_account_id = local.account_id
 }
 
+data "aws_quicksight_group" "this" {
+  count = var.type == "EXTERNAL" ? 1 : 0
+
+  namespace  = var.namespace
+  group_name = var.name
+
+  aws_account_id = local.account_id
+}
+
+locals {
+  group = var.type == "INTERNAL" ? aws_quicksight_group.this[0] : data.aws_quicksight_group.this[0]
+}
+
 resource "aws_quicksight_group_membership" "this" {
   for_each = toset(var.members)
 
-  namespace   = aws_quicksight_group.this.namespace
-  group_name  = aws_quicksight_group.this.group_name
+  namespace   = local.group.namespace
+  group_name  = local.group.group_name
   member_name = each.value
 
   aws_account_id = local.account_id
