@@ -14,6 +14,12 @@ locals {
   } : {}
 }
 
+data "aws_caller_identity" "this" {}
+
+locals {
+  account_id = data.aws_caller_identity.this.account_id
+}
+
 
 ###################################################
 # QuickSight Namespace
@@ -32,4 +38,6 @@ resource "aws_quicksight_namespace" "this" {
     local.module_tags,
     var.tags,
   )
+
+  aws_account_id = local.account_id
 }
