@@ -6,7 +6,7 @@
 
 Terraform module which creates data related resources on AWS.
 
-- [data-source-aurora-postgresql](./modules/data-source-aurora-postgresql)
+- [data-source](./modules/data-source)
 - [folder](./modules/folder)
 - [group](./modules/group)
 - [namespace](./modules/namespace)
@@ -19,7 +19,15 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
 
 - **AWS QuickSight**
   - Data Sources
+    - AWS Athena
+    - AWS S3
+    - Aurora MySQL
     - Aurora PostgreSQL
+    - MariaDB
+    - MySQL
+    - Oracle
+    - PostgreSQL
+    - SQL Server
   - Folder
   - Group & Group Membership
   - Namespace
