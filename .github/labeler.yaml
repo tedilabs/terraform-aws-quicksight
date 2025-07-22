@@ -19,6 +19,11 @@
   - any-glob-to-any-file:
     - modules/namespace/**/*
 
+":floppy_disk: user":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/user/**/*
+
 ":floppy_disk: vpc-connection":
 - changed-files:
   - any-glob-to-any-file:

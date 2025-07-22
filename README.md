@@ -10,6 +10,7 @@ Terraform module which creates data related resources on AWS.
 - [folder](./modules/folder)
 - [group](./modules/group)
 - [namespace](./modules/namespace)
+- [user](./modules/user)
 - [vpc-connection](./modules/vpc-connection)
 
 
@@ -29,7 +30,7 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
     - PostgreSQL
     - SQL Server
   - Folder
-  - Group & Group Membership
+  - User & Group
   - Namespace
   - VPC Connection
 
