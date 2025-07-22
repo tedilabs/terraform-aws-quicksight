@@ -53,5 +53,8 @@
   description: "This issue or pull request is related to namespace module."
   name: ":floppy_disk: namespace"
 - color: "fbca04"
+  description: "This issue or pull request is related to user module."
+  name: ":floppy_disk: user"
+- color: "fbca04"
   description: "This issue or pull request is related to vpc-connection module."
   name: ":floppy_disk: vpc-connection"
