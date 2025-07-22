@@ -124,7 +124,7 @@ module "s3_data_source" {
 
 #### IAM Role Requirements for S3
 
-The IAM role specified in `iam_role_arn` should have:
+The IAM role specified in `iam_role` should have:
 
 1. **Trust policy** allowing QuickSight to assume the role:
 ```json
