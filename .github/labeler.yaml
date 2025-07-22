@@ -1,8 +1,8 @@
 # Modules
-":floppy_disk: data-source-aurora-postgresql":
+":floppy_disk: data-source":
 - changed-files:
   - any-glob-to-any-file:
-    - modules/data-source-aurora-postgresql/**/*
+    - modules/data-source/**/*
 
 ":floppy_disk: folder":
 - changed-files:

@@ -15,29 +15,76 @@ variable "display_name" {
   }
 }
 
-variable "parameters" {
-  description = <<EOF
-  (Required) A configuration for parameters used to connect to the Aurora PostgreSQL data source. `parameters` as defined below.
-    (Required) `database` - The name of the Aurora PostgreSQL database to connect to.
-    (Required) `host` - The hostname of the Aurora PostgreSQL database server.
-    (Optional) `port` - The port number for the Aurora PostgreSQL database server. Defaults to `5432`.
-  EOF
-  type = object({
-    database = string
-    host     = string
-    port     = optional(number, 5432)
-  })
-  nullable = false
+variable "type" {
+  description = "(Required) The type of the QuickSight data source. Valid values are `AURORA_POSTGRESQL`, `AURORA`, `ATHENA`, `MYSQL`, `ORACLE`, `POSTGRESQL`, `S3`, `SQLSERVER`, `MARIADB`."
+  type        = string
+  nullable    = false
 
   validation {
-    condition     = var.parameters.port >= 1 && var.parameters.port <= 65535
-    error_message = "The value for `port` must be between `1` and `65535`."
+    condition = contains([
+      "AURORA_POSTGRESQL",
+      "AURORA",
+      "ATHENA",
+      "MYSQL",
+      "ORACLE",
+      "POSTGRESQL",
+      "S3",
+      "SQLSERVER",
+      "MARIADB"
+    ], var.type)
+    error_message = "Valid values for `type` are `AURORA_POSTGRESQL`, `AURORA`, `ATHENA`, `MYSQL`, `ORACLE`, `POSTGRESQL`, `S3`, `SQLSERVER`, `MARIADB`."
+  }
+}
+
+variable "parameters" {
+  description = <<EOF
+  (Required) A configuration for parameters used to connect to the data source. The structure varies based on the data source type:
+
+  **AURORA_POSTGRESQL/AURORA/MYSQL/ORACLE/POSTGRESQL/SQLSERVER/MARIADB:**
+    (Required) `database` - The name of the database to connect to.
+    (Required) `host` - The hostname of the database server.
+    (Optional) `port` - The port number for the database server. Defaults vary by type.
+
+  **ATHENA:**
+    (Optional) `workgroup` - The name of the Athena workgroup. Defaults to `primary`.
+
+  **S3:**
+    (Required) `manifest_file_location` - The Amazon S3 location of the manifest file in the format `s3://bucket/key`.
+    (Optional) `iam_role` - The IAM role ARN that QuickSight uses to access the S3 bucket instead of an account-wide IAM role. Recommended for security best practices.
+  EOF
+  type        = any
+  nullable    = false
+
+  validation {
+    condition     = var.parameters != null
+    error_message = "Parameters must be a non-null object."
+  }
+  validation {
+    condition = (
+      !can(var.parameters.port) ||
+      (can(var.parameters.port) && var.parameters.port >= 1 && var.parameters.port <= 65535)
+    )
+    error_message = "Port parameter must be between `1` and `65535` if specified."
+  }
+  validation {
+    condition = (
+      !can(var.parameters.manifest_file_location) ||
+      (can(var.parameters.manifest_file_location) && startswith(var.parameters.manifest_file_location, "s3://"))
+    )
+    error_message = "Value for `manifest_file_location` parameter must start with 's3://' if specified."
+  }
+  validation {
+    condition = (
+      !can(var.parameters.iam_role) ||
+      (can(provider::aws::arn_parse(var.parameters.iam_role)) && provider::aws::arn_parse(var.parameters.iam_role).service == "iam")
+    )
+    error_message = "Value for `iam_role` parameter must be a valid IAM role ARN if specified."
   }
 }
 
 variable "credentials" {
   description = <<EOF
-  (Required) A confiruation for credentials which Amazon QuickSight uses to connect to the data source. `credentials` as defined below.
+  (Optional) A configuration for credentials which Amazon QuickSight uses to connect to the data source. Not required for S3 data sources. `credentials` as defined below.
     (Optional) `type` - The type of credentials to use. Valid values are `CREDENTIAL_PAIR`, `COPY_DATA_SOURCE`, or `SECRETS_MANAGER`. Defaults to `SECRETS_MANAGER`.
     (Optional) `credential_pair` - Credential pair with `username` and `password`.
     (Optional) `data_source` - The ARN of a data source that has the credential pair to use.
@@ -52,11 +99,13 @@ variable "credentials" {
     data_source            = optional(string)
     secrets_manager_secret = optional(string)
   })
-  nullable  = false
+  default   = null
+  nullable  = true
   sensitive = true
 
   validation {
     condition = anytrue([
+      var.credentials == null,
       var.credentials.type != "CREDENTIAL_PAIR",
       var.credentials.type == "CREDENTIAL_PAIR" && var.credentials.credential_pair != null,
     ])
@@ -64,6 +113,7 @@ variable "credentials" {
   }
   validation {
     condition = anytrue([
+      var.credentials == null,
       var.credentials.type != "COPY_DATA_SOURCE",
       var.credentials.type == "COPY_DATA_SOURCE" && var.credentials.data_source != null,
     ])
@@ -71,6 +121,7 @@ variable "credentials" {
   }
   validation {
     condition = anytrue([
+      var.credentials == null,
       var.credentials.type != "SECRETS_MANAGER",
       var.credentials.type == "SECRETS_MANAGER" && var.credentials.secrets_manager_secret != null,
     ])
