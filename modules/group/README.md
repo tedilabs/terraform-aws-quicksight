@@ -52,5 +52,6 @@ No modules.
 | <a name="output_members"></a> [members](#output\_members) | A set of user names that you want to add to the group membership. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the QuickSight group. |
 | <a name="output_namespace"></a> [namespace](#output\_namespace) | The namespace that the group belongs to. |
+| <a name="output_principal_id"></a> [principal\_id](#output\_principal\_id) | The principal ID of the group. |
 | <a name="output_type"></a> [type](#output\_type) | The type of the QuickSight group. |
 <!-- END_TF_DOCS -->

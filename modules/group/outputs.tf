@@ -8,6 +8,11 @@ output "arn" {
   value       = local.group.arn
 }
 
+output "principal_id" {
+  description = "The principal ID of the group."
+  value       = try(local.group.principal_id, null)
+}
+
 output "name" {
   description = "The name of the QuickSight group."
   value       = local.group.group_name
