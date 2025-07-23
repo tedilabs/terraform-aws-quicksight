@@ -50,3 +50,18 @@ resource "aws_quicksight_group_membership" "this" {
 
   aws_account_id = local.account_id
 }
+
+
+###################################################
+# QuickSight Role Membership
+###################################################
+
+resource "aws_quicksight_role_membership" "this" {
+  count = var.role != null ? 1 : 0
+
+  namespace   = var.namespace
+  role        = var.role
+  member_name = local.group.group_name
+
+  aws_account_id = local.account_id
+}

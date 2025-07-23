@@ -37,3 +37,8 @@ output "members" {
   description = "A set of user names that you want to add to the group membership."
   value       = keys(aws_quicksight_group_membership.this)
 }
+
+output "role" {
+  description = "The QuickSight role assigned to the group."
+  value       = one(aws_quicksight_role_membership.this[*].role)
+}
