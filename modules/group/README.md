@@ -18,7 +18,7 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.2.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.4.0 |
 
 ## Modules
 
@@ -42,7 +42,7 @@ No modules.
 | <a name="input_description"></a> [description](#input\_description) | (Optional) A description for the QuickSight group. Only applicable for `INTERNAL` type groups. | `string` | `"Managed by Terraform."` | no |
 | <a name="input_members"></a> [members](#input\_members) | (Optional) A set of user names that you want to add to the group membership. | `set(string)` | `[]` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | (Optional) The namespace that you want the group to be a part of. | `string` | `"default"` | no |
-| <a name="input_role"></a> [role](#input\_role) | (Optional) The QuickSight role to assign to the group. Valid values are `ADMIN`, `ADMIN_PRO`, `AUTHOR`, `AUTHOR_PRO`, `READER`, and `READER_PRO`. | `string` | `null` | no |
+| <a name="input_role"></a> [role](#input\_role) | (Optional) The QuickSight role to assign to the group. Valid values are `NONE`, `ADMIN`, `ADMIN_PRO`, `AUTHOR`, `AUTHOR_PRO`, `READER`, and `READER_PRO`. Defaults to `NONE`. | `string` | `"NONE"` | no |
 | <a name="input_type"></a> [type](#input\_type) | (Optional) The type of the QuickSight group. Valid values are `INTERNAL` and `EXTERNAL`. Defaults to `INTERNAL`. `EXTERNAL` for the Active Directory or IAM Identity Center authentication method. | `string` | `"INTERNAL"` | no |
 
 ## Outputs

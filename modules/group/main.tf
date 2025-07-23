@@ -57,7 +57,7 @@ resource "aws_quicksight_group_membership" "this" {
 ###################################################
 
 resource "aws_quicksight_role_membership" "this" {
-  count = var.role != null ? 1 : 0
+  count = var.role != "NONE" ? 1 : 0
 
   namespace   = var.namespace
   role        = var.role

@@ -38,12 +38,13 @@ variable "members" {
 }
 
 variable "role" {
-  description = "(Optional) The QuickSight role to assign to the group. Valid values are `ADMIN`, `ADMIN_PRO`, `AUTHOR`, `AUTHOR_PRO`, `READER`, and `READER_PRO`."
+  description = "(Optional) The QuickSight role to assign to the group. Valid values are `NONE`, `ADMIN`, `ADMIN_PRO`, `AUTHOR`, `AUTHOR_PRO`, `READER`, and `READER_PRO`. Defaults to `NONE`."
   type        = string
-  default     = null
+  default     = "NONE"
+  nullable    = false
 
   validation {
-    condition     = var.role == null || contains(["ADMIN", "ADMIN_PRO", "AUTHOR", "AUTHOR_PRO", "READER", "READER_PRO"], var.role)
-    error_message = "The value for `role` must be one of `ADMIN`, `ADMIN_PRO`, `AUTHOR`, `AUTHOR_PRO`, `READER`, or `READER_PRO`."
+    condition     = contains(["NONE", "ADMIN", "ADMIN_PRO", "AUTHOR", "AUTHOR_PRO", "READER", "READER_PRO"], var.role)
+    error_message = "The value for `role` must be one of `NONE`, `ADMIN`, `ADMIN_PRO`, `AUTHOR`, `AUTHOR_PRO`, `READER`, or `READER_PRO`."
   }
 }

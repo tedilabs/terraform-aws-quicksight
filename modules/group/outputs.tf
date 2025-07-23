@@ -40,5 +40,5 @@ output "members" {
 
 output "role" {
   description = "The QuickSight role assigned to the group."
-  value       = one(aws_quicksight_role_membership.this[*].role)
+  value       = var.role
 }
