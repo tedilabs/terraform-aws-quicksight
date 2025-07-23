@@ -6,6 +6,7 @@
 
 Terraform module which creates data related resources on AWS.
 
+- [account](./modules/account)
 - [data-source](./modules/data-source)
 - [folder](./modules/folder)
 - [group](./modules/group)
@@ -19,6 +20,9 @@ Terraform module which creates data related resources on AWS.
 Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-quicksight) were written to manage the following AWS Services with Terraform.
 
 - **AWS QuickSight**
+  - Account
+    - Subscription
+    - Settings
   - Data Sources
     - AWS Athena
     - AWS S3

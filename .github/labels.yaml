@@ -41,6 +41,9 @@
 
 # Modules
 - color: "fbca04"
+  description: "This issue or pull request is related to account module."
+  name: ":floppy_disk: account"
+- color: "fbca04"
   description: "This issue or pull request is related to data-source module."
   name: ":floppy_disk: data-source"
 - color: "fbca04"

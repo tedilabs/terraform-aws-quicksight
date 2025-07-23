@@ -1,4 +1,9 @@
 # Modules
+":floppy_disk: account":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/account/**/*
+
 ":floppy_disk: data-source":
 - changed-files:
   - any-glob-to-any-file:
