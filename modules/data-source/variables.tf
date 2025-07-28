@@ -7,6 +7,7 @@ variable "name" {
 variable "display_name" {
   description = "(Optional) The display name for the QuickSight data source, maximum of 128 characters."
   type        = string
+  default     = ""
   nullable    = false
 
   validation {

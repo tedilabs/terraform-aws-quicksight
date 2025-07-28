@@ -7,6 +7,7 @@ variable "name" {
 variable "display_name" {
   description = "(Optional) The display name for the QuickSight VPC connection."
   type        = string
+  default     = ""
   nullable    = false
 }
 
@@ -200,4 +201,3 @@ variable "resource_group_description" {
   default     = "Managed by Terraform."
   nullable    = false
 }
-

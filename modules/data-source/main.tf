@@ -34,8 +34,6 @@ locals {
       "quicksight:DescribeDataSource",
     ]
   }
-
-  # Parameter validation is handled through Terraform's type system and try() functions
 }
 
 
@@ -47,7 +45,7 @@ resource "aws_quicksight_data_source" "this" {
   aws_account_id = local.account_id
 
   data_source_id = var.name
-  name           = var.display_name
+  name           = coalesce(var.display_name, var.name)
   type           = var.type
 
 

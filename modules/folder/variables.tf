@@ -7,8 +7,8 @@ variable "name" {
 variable "display_name" {
   description = "(Optional) A display name for the QuickSight folder."
   type        = string
-  default     = null
-  nullable    = true
+  default     = ""
+  nullable    = false
 }
 
 variable "type" {

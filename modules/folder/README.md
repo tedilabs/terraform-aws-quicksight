@@ -17,7 +17,7 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.2.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.5.0 |
 
 ## Modules
 
@@ -40,7 +40,7 @@ This module creates following resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | (Required) An identifier for the QuickSight folder. | `string` | n/a | yes |
 | <a name="input_assets"></a> [assets](#input\_assets) | (Optional) A configuration for assets of this QuickSight folder. `assets` as defined below.<br/>    (Optional) `analyses` - A list of the IDs of the analysis assets to add to this QuickSight folder.<br/>    (Optional) `dashboards` - A list of the IDs of the dashboard assets to add to this QuickSight folder.<br/>    (Optional) `datasets` - A list of the IDs of the dataset assets to add to this QuickSight folder. | <pre>object({<br/>    analyses   = optional(list(string), [])<br/>    dashboards = optional(list(string), [])<br/>    datasets   = optional(list(string), [])<br/>  })</pre> | `{}` | no |
-| <a name="input_display_name"></a> [display\_name](#input\_display\_name) | (Optional) A display name for the QuickSight folder. | `string` | `null` | no |
+| <a name="input_display_name"></a> [display\_name](#input\_display\_name) | (Optional) A display name for the QuickSight folder. | `string` | `""` | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | <a name="input_parent_folder"></a> [parent\_folder](#input\_parent\_folder) | (Optional) The Amazon Resource Name (ARN) for the parent folder. If not set, creates a root-level folder. | `string` | `null` | no |
 | <a name="input_permissions"></a> [permissions](#input\_permissions) | (Optional) A list of resource permissions on the QuickSight folder. Maximum of 64 items. Each value of `permissions` as defined below.<br/>    (Required) `principal` - The Amazon Resource Name (ARN) of the principal. This can be one of the following:<br/>      - The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)<br/>      - The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)<br/>      - The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight ARN. Use this option only to share resources (templates) across Amazon Web Services accounts. (This is less common.)<br/>    (Optional) `role` - A role of principal with a pre-defined set of permissions. Valid values are `OWNER` and `READER`. Conflicting with `actions`.<br/>    (Optional) `actions` - A set of IAM actions to grant or revoke permissions on. Conflicting with `role`. | <pre>list(object({<br/>    principal = string<br/>    role      = optional(string)<br/>    actions   = optional(set(string), [])<br/>  }))</pre> | `[]` | no |
