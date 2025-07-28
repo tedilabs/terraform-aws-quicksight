@@ -7,6 +7,7 @@
 Terraform module which creates data related resources on AWS.
 
 - [account](./modules/account)
+- [data-set](./modules/data-set)
 - [data-source](./modules/data-source)
 - [folder](./modules/folder)
 - [group](./modules/group)
@@ -23,6 +24,7 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
   - Account
     - Subscription
     - Settings
+  - Data Set
   - Data Sources
     - AWS Athena
     - AWS S3

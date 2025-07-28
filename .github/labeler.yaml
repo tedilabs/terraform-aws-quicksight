@@ -4,6 +4,11 @@
   - any-glob-to-any-file:
     - modules/account/**/*
 
+":floppy_disk: data-set":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/data-set/**/*
+
 ":floppy_disk: data-source":
 - changed-files:
   - any-glob-to-any-file:
