@@ -12,14 +12,14 @@ variable "display_name" {
 }
 
 variable "type" {
-  description = "(Optional) The type of the QuickSight folder. Valid values are `SHARED`. Defaults to `SHARED`."
+  description = "(Optional) The type of the QuickSight folder. Valid values are `RESTRICTED`, `SHARED`. Defaults to `SHARED`."
   type        = string
   default     = "SHARED"
   nullable    = false
 
   validation {
-    condition     = contains(["SHARED"], var.type)
-    error_message = "Valid values for `type` are `SHARED`."
+    condition     = contains(["RESTRICTED", "SHARED"], var.type)
+    error_message = "Valid values for `type` are `RESTRICTED` and `SHARED`."
   }
 }
 

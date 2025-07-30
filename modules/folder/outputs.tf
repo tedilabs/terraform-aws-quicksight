@@ -68,3 +68,11 @@ output "assets" {
     ]
   }
 }
+
+# output "debug" {
+#   value = {
+#     for k, v in aws_quicksight_folder.this :
+#     k => v
+#     if !contains(["arn", "folder_id", "name", "folder_type", "parent_folder_arn", "created_time", "last_updated_time", "tags", "tags_all", "timeouts", "permissions", "id", "folder_path", "aws_account_id"], k)
+#   }
+# }

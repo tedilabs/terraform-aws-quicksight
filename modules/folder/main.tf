@@ -14,7 +14,11 @@ locals {
   } : {}
 }
 
+data "aws_caller_identity" "this" {}
+
 locals {
+  account_id = data.aws_caller_identity.this.account_id
+
   role_actions = {
     "OWNER" = [
       "quicksight:CreateFolder",
@@ -40,6 +44,8 @@ locals {
 # INFO: Not supported attributes
 # - `aws_account_id`
 resource "aws_quicksight_folder" "this" {
+  aws_account_id = local.account_id
+
   folder_id         = var.name
   name              = coalesce(var.display_name, var.name)
   folder_type       = var.type
@@ -88,7 +94,8 @@ resource "aws_quicksight_folder_membership" "analysis" {
 resource "aws_quicksight_folder_membership" "dashboard" {
   for_each = toset(var.assets.dashboards)
 
-  folder_id = aws_quicksight_folder.this.folder_id
+  aws_account_id = local.account_id
+  folder_id      = aws_quicksight_folder.this.folder_id
 
   member_type = "DASHBOARD"
   member_id   = each.value
@@ -99,7 +106,8 @@ resource "aws_quicksight_folder_membership" "dashboard" {
 resource "aws_quicksight_folder_membership" "dataset" {
   for_each = toset(var.assets.datasets)
 
-  folder_id = aws_quicksight_folder.this.folder_id
+  aws_account_id = local.account_id
+  folder_id      = aws_quicksight_folder.this.folder_id
 
   member_type = "DATASET"
   member_id   = each.value
