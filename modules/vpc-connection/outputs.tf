@@ -76,3 +76,19 @@ output "dns_resolvers" {
 #     if !contains(["aws_account_id", "arn", "id", "name", "vpc_connection_id", "tags", "tags_all", "availability_status", "subnet_ids", "dns_resolvers", "security_group_ids", "timeouts", "role_arn"], k)
 #   }
 # }
+
+output "resource_group" {
+  description = "The resource group created to manage resources in this module."
+  value = merge(
+    {
+      enabled = var.resource_group.enabled && var.module_tags_enabled
+    },
+    (var.resource_group.enabled && var.module_tags_enabled
+      ? {
+        arn  = module.resource_group[0].arn
+        name = module.resource_group[0].name
+      }
+      : {}
+    )
+  )
+}
