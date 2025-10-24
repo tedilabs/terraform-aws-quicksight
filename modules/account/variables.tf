@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "name" {
   description = "(Required) A name for the QuickSight account settings."
   type        = string
@@ -26,6 +33,11 @@ variable "default_namespace" {
   type        = string
   default     = "default"
   nullable    = false
+
+  validation {
+    condition     = length(var.default_namespace) <= 64
+    error_message = "The `default_namespace` must not exceed 64 characters."
+  }
 }
 
 variable "termination_protection_enabled" {
@@ -95,13 +107,19 @@ variable "role_memberships" {
   description = <<EOF
   (Optional) A configuration for initial role memberships in the QuickSight account. Only required for `ACTIVE_DIRECTORY` or `IAM_IDENTITY_CENTER` authentication methods. `role_memberships` as defined below.
     (Required) `admin` - A set of group names for the admin role. Required for both `ACTIVE_DIRECTORY` and `IAM_IDENTITY_CENTER` authentication methods for initial setup.
+    (Optional) `admin_pro` - A set of group names for the admin pro role.
     (Optional) `author` - A set of group names for the author role.
+    (Optional) `author_pro` - A set of group names for the author pro role.
     (Optional) `reader` - A set of group names for the reader role.
+    (Optional) `reader_pro` - A set of group names for the reader pro role.
   EOF
   type = object({
-    admin  = set(string)
-    author = optional(set(string), [])
-    reader = optional(set(string), [])
+    admin      = set(string)
+    admin_pro  = optional(set(string), [])
+    author     = optional(set(string), [])
+    author_pro = optional(set(string), [])
+    reader     = optional(set(string), [])
+    reader_pro = optional(set(string), [])
   })
   default  = null
   nullable = true
@@ -113,4 +131,14 @@ variable "role_memberships" {
     ])
     error_message = "The `role_memberships` must be specified for `ACTIVE_DIRECTORY` or `IAM_IDENTITY_CENTER` authentication methods."
   }
+}
+
+variable "timeouts" {
+  description = "(Optional) How long to wait for the QuickSight account subscription to be created/deleted."
+  type = object({
+    create = optional(string, "10m")
+    delete = optional(string, "10m")
+  })
+  default  = {}
+  nullable = false
 }

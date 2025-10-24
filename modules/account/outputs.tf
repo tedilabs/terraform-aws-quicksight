@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_quicksight_account_subscription.this.region
+}
+
 output "id" {
   description = "The ID of the QuickSight account."
   value       = aws_quicksight_account_subscription.this.id
@@ -62,11 +67,14 @@ output "iam_identity_center" {
 
 output "role_memberships" {
   description = "The role memberships for the QuickSight account."
-  value = (contains(["ACTIVE_DIRECTORY", "IAM_IDENTITY_CENTER"], aws_quicksight_account_subscription.this.authentication_method)
+  value = (contains(["ACTIVE_DIRECTORY", "IAM_IDENTITY_CENTER"], var.authentication_method)
     ? {
-      admin  = aws_quicksight_account_subscription.this.admin_group
-      author = aws_quicksight_account_subscription.this.author_group
-      reader = aws_quicksight_account_subscription.this.reader_group
+      admin      = aws_quicksight_account_subscription.this.admin_group
+      admin_pro  = aws_quicksight_account_subscription.this.admin_pro_group
+      author     = aws_quicksight_account_subscription.this.author_group
+      author_pro = aws_quicksight_account_subscription.this.author_pro_group
+      reader     = aws_quicksight_account_subscription.this.reader_group
+      read_pro   = aws_quicksight_account_subscription.this.reader_pro_group
     }
     : null
   )
@@ -77,7 +85,7 @@ output "role_memberships" {
 #     subscription = {
 #       for k, v in aws_quicksight_account_subscription.this :
 #       k => v
-#       if !contains(["account_name", "authentication_method", "edition", "aws_account_id", "notification_email", "timeouts", "contact_number", "email_address", "first_name", "last_name", "admin_group", "author_group", "reader_group", "id", "account_subscription_status", "iam_identity_center_instance_arn", "active_directory_name", "realm", "directory_id"], k)
+#       if !contains(["account_name", "authentication_method", "edition", "aws_account_id", "notification_email", "timeouts", "contact_number", "email_address", "first_name", "last_name", "admin_group", "admin_pro_group", "author_group", "author_pro_group", "reader_group", "reader_pro_group", "id", "account_subscription_status", "iam_identity_center_instance_arn", "active_directory_name", "realm", "directory_id", "region"], k)
 #     }
 #     settings = {
 #       for k, v in aws_quicksight_account_settings.this :

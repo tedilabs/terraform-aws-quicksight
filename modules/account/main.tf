@@ -24,6 +24,10 @@ locals {
 # - `first_name`
 # - `last_name`
 resource "aws_quicksight_account_subscription" "this" {
+  region = var.region
+
+  aws_account_id = local.account_id
+
   account_name = var.name
   edition      = var.edition
 
@@ -58,20 +62,40 @@ resource "aws_quicksight_account_subscription" "this" {
     ? var.role_memberships.admin
     : null
   )
+  admin_pro_group = (contains(["ACTIVE_DIRECTORY", "IAM_IDENTITY_CENTER"], var.authentication_method) && length(var.role_memberships.admin_pro) > 0
+    ? var.role_memberships.admin_pro
+    : null
+  )
   author_group = (contains(["ACTIVE_DIRECTORY", "IAM_IDENTITY_CENTER"], var.authentication_method) && length(var.role_memberships.author) > 0
     ? var.role_memberships.author
+    : null
+  )
+  author_pro_group = (contains(["ACTIVE_DIRECTORY", "IAM_IDENTITY_CENTER"], var.authentication_method) && length(var.role_memberships.author_pro) > 0
+    ? var.role_memberships.author_pro
     : null
   )
   reader_group = (contains(["ACTIVE_DIRECTORY", "IAM_IDENTITY_CENTER"], var.authentication_method) && length(var.role_memberships.reader) > 0
     ? var.role_memberships.reader
     : null
   )
-  # TODO: Not supported yet
-  # admin_pro_group                  = var.admin_pro_group
-  # author_pro_group                 = var.author_pro_group
-  # reader_pro_group                 = var.reader_pro_group
+  reader_pro_group = (contains(["ACTIVE_DIRECTORY", "IAM_IDENTITY_CENTER"], var.authentication_method) && length(var.role_memberships.reader_pro) > 0
+    ? var.role_memberships.reader_pro
+    : null
+  )
 
-  aws_account_id = local.account_id
+  timeouts {
+    create = var.timeouts.create
+    delete = var.timeouts.delete
+  }
+
+  lifecycle {
+    ignore_changes = [
+      # INFO: Prevents recreation due to provider issue
+      admin_group,
+      authentication_method,
+      aws_account_id,
+    ]
+  }
 }
 
 
@@ -79,9 +103,10 @@ resource "aws_quicksight_account_subscription" "this" {
 # QuickSight Account Settings
 ###################################################
 
+# TODO: Support `region` argument when supported by the provider
 resource "aws_quicksight_account_settings" "this" {
+  aws_account_id = aws_quicksight_account_subscription.this.aws_account_id
+
   default_namespace              = var.default_namespace
   termination_protection_enabled = var.termination_protection_enabled
-
-  aws_account_id = aws_quicksight_account_subscription.this.aws_account_id
 }
