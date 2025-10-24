@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "name" {
   description = "(Required) An identifier for the QuickSight folder."
   type        = string
@@ -85,13 +92,22 @@ variable "module_tags_enabled" {
   default     = true
 }
 
+variable "timeouts" {
+  description = "(Optional) How long to wait for the QuickSight Folder to be created/read/updated/deleted."
+  type = object({
+    create = optional(string, "5m")
+    read   = optional(string, "5m")
+    update = optional(string, "5m")
+    delete = optional(string, "5m")
+  })
+  default  = {}
+  nullable = false
+}
+
 
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF

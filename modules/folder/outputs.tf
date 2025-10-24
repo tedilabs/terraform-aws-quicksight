@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_quicksight_folder.this.region
+}
+
 output "id" {
   description = "The ID of the QuickSight folder."
   value       = aws_quicksight_folder.this.folder_id
@@ -69,14 +74,6 @@ output "assets" {
   }
 }
 
-# output "debug" {
-#   value = {
-#     for k, v in aws_quicksight_folder.this :
-#     k => v
-#     if !contains(["arn", "folder_id", "name", "folder_type", "parent_folder_arn", "created_time", "last_updated_time", "tags", "tags_all", "timeouts", "permissions", "id", "folder_path", "aws_account_id"], k)
-#   }
-# }
-
 output "resource_group" {
   description = "The resource group created to manage resources in this module."
   value = merge(
@@ -92,3 +89,11 @@ output "resource_group" {
     )
   )
 }
+
+# output "debug" {
+#   value = {
+#     for k, v in aws_quicksight_folder.this :
+#     k => v
+#     if !contains(["arn", "folder_id", "name", "folder_type", "parent_folder_arn", "created_time", "last_updated_time", "tags", "tags_all", "timeouts", "permissions", "id", "folder_path", "aws_account_id", "region"], k)
+#   }
+# }

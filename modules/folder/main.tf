@@ -41,9 +41,9 @@ locals {
 # QuickSight Folder
 ###################################################
 
-# INFO: Not supported attributes
-# - `aws_account_id`
 resource "aws_quicksight_folder" "this" {
+  region = var.region
+
   aws_account_id = local.account_id
 
   folder_id         = var.name
@@ -71,6 +71,13 @@ resource "aws_quicksight_folder" "this" {
     local.module_tags,
     var.tags,
   )
+
+  timeouts {
+    create = var.timeouts.create
+    read   = var.timeouts.read
+    update = var.timeouts.update
+    delete = var.timeouts.delete
+  }
 }
 
 
@@ -78,21 +85,22 @@ resource "aws_quicksight_folder" "this" {
 # QuickSight Folder Memberships
 ###################################################
 
-# INFO: Not supported attributes
-# - `aws_account_id`
 resource "aws_quicksight_folder_membership" "analysis" {
   for_each = toset(var.assets.analyses)
 
-  folder_id = aws_quicksight_folder.this.folder_id
+  region = aws_quicksight_folder.this.region
+
+  aws_account_id = local.account_id
+  folder_id      = aws_quicksight_folder.this.folder_id
 
   member_type = "ANALYSIS"
   member_id   = each.value
 }
 
-# INFO: Not supported attributes
-# - `aws_account_id`
 resource "aws_quicksight_folder_membership" "dashboard" {
   for_each = toset(var.assets.dashboards)
+
+  region = aws_quicksight_folder.this.region
 
   aws_account_id = local.account_id
   folder_id      = aws_quicksight_folder.this.folder_id
@@ -101,10 +109,10 @@ resource "aws_quicksight_folder_membership" "dashboard" {
   member_id   = each.value
 }
 
-# INFO: Not supported attributes
-# - `aws_account_id`
 resource "aws_quicksight_folder_membership" "dataset" {
   for_each = toset(var.assets.datasets)
+
+  region = aws_quicksight_folder.this.region
 
   aws_account_id = local.account_id
   folder_id      = aws_quicksight_folder.this.folder_id
