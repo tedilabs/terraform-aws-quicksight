@@ -28,6 +28,10 @@ locals {
 # INFO: Not supported attributes
 # - `aws_account_id`
 resource "aws_quicksight_namespace" "this" {
+  region = var.region
+
+  aws_account_id = local.account_id
+
   namespace      = var.name
   identity_store = var.identity_store
 
@@ -38,6 +42,4 @@ resource "aws_quicksight_namespace" "this" {
     local.module_tags,
     var.tags,
   )
-
-  aws_account_id = local.account_id
 }

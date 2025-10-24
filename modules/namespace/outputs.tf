@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_quicksight_namespace.this.region
+}
+
 output "arn" {
   description = "The ARN of the QuickSight namespace."
   value       = aws_quicksight_namespace.this.arn
@@ -6,6 +11,11 @@ output "arn" {
 output "name" {
   description = "The name of the QuickSight namespace."
   value       = aws_quicksight_namespace.this.namespace
+}
+
+output "status" {
+  description = "The creation status of the QuickSight namespace."
+  value       = aws_quicksight_namespace.this.creation_status
 }
 
 output "identity_store" {
@@ -33,3 +43,11 @@ output "resource_group" {
     )
   )
 }
+
+# output "debug" {
+#   value = {
+#     for k, v in aws_quicksight_namespace.this :
+#     k => v
+#     if !contains(["arn", "namespace", "identity_store", "capacity_region", "region", "tags", "tags_all", "id", "timeouts", "aws_account_id", "creation_status"], k)
+#   }
+# }
