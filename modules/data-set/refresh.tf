@@ -16,6 +16,8 @@ resource "aws_quicksight_refresh_schedule" "this" {
     schedule.id => schedule
   }
 
+  region = aws_quicksight_data_set.this.region
+
   aws_account_id = local.account_id
 
   data_set_id = aws_quicksight_data_set.this.data_set_id
@@ -63,6 +65,8 @@ resource "aws_quicksight_ingestion" "this" {
     for ingestion in var.refresh_ingestions :
     ingestion.id => ingestion
   }
+
+  region = aws_quicksight_data_set.this.region
 
   aws_account_id = local.account_id
 

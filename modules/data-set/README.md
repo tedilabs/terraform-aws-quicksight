@@ -11,20 +11,20 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.100 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.18.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
@@ -53,9 +53,8 @@ This module creates following resources.
 | <a name="input_refresh_config"></a> [refresh\_config](#input\_refresh\_config) | (Optional) A refresh configuration for the  data set. `refresh_config` as defined below.<br/>    (Optional) `incremental_refresh_lookback_window` - The configuration for the incremental refresh lookback window. This is used to determine how far back in time the incremental refresh should look for new or changed data. `incremental_refresh_lookback_window` as defined below.<br/>      (Required) `column` - The column that contains the timestamp or date information to use for the lookback window.<br/>      (Required) `size` - The size of the lookback window.<br/>      (Required) `unit` - The unit of time for the lookback window. Valid values are `HOUR`, `DAY`, and `WEEK`. | <pre>object({<br/>    incremental_refresh_lookback_window = optional(object({<br/>      column = string<br/>      size   = number<br/>      unit   = string<br/>    }))<br/>  })</pre> | `{}` | no |
 | <a name="input_refresh_ingestions"></a> [refresh\_ingestions](#input\_refresh\_ingestions) | (Optional) A list of refresh ingestion configurations. Each item of `refresh_ingestions` as defined below.<br/>    (Required) `id` - The unique identifier for the refresh ingestion.<br/>    (Optional) `refresh_type` - The type of the refresh ingestion. Valid values are `INCREMENTAL` and `FULL`. Defaults to `FULL`. | <pre>list(object({<br/>    id           = string<br/>    refresh_type = optional(string, "FULL")<br/>  }))</pre> | `[]` | no |
 | <a name="input_refresh_schedules"></a> [refresh\_schedules](#input\_refresh\_schedules) | (Optional) A list of refresh schedule configurations. Each item of `refresh_schedules` as defined below.<br/>    (Required) `id` - The unique identifier for the refresh schedule.<br/>    (Optional) `refresh_type` - The type of the refresh schedule. Valid values are `INCREMENTAL` and `FULL`. Defaults to `FULL`.<br/>    (Optional) `start_at` - The date and time after which the refresh schedule can be started, expressed in `YYYY-MM-DDTHH:MM:SS` format.<br/>    (Required) `schedule_frequency` - The configuration for the refresh schedule frequency. `schedule_frequency` as defined below.<br/>      (Optional) `timezone` - The timezone that you want the refresh schedule to use.<br/>      (Optional) `interval` - The interval at which the refresh should occur. Valid values are `MINUTE15`, `MINUTE30`, `HOURLY`, `DAILY`, `WEEKLY`, and `MONTHLY`. Defaults to `DAILY`.<br/>        - `MINUTE15` : The dataset refreshes every 15 minutes. This value is only supported for incremental refreshes. This interval can only be used for one schedule per dataset.<br/>        - `MINUTE30` : The dataset refreshes every 30 minutes. This value is only supported for incremental refreshes. This interval can only be used for one schedule per dataset.<br/>        - `HOURLY` : The dataset refreshes every hour. This interval can only be used for one schedule per dataset.<br/>        - `DAILY` : The dataset refreshes every day.<br/>        - `WEEKLY` : The dataset refreshes every week.<br/>        - `MONTHLY` : The dataset refreshes every month.<br/>      (Optional) `time_of_day` - The time of day that you want the dataset to refresh. This value is expressed in `HH:MM` format. This field is not required for schedules with `HOURLY` refresh type. Defaults to `00:00` (midnight).<br/>      (Optional) `day_of_week` - The day of the week on which the refresh should occur. Valid values are `SUNDAY`, `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, and `SATURDAY`. Required if `interval` is set to `WEEKLY`.<br/>      (Optional) `day_of_month` - The day of the month on which the refresh should occur. Valid values are `1` to `28`, and `LAST_DAY_OF_MONTH`. Required if `interval` is set to `MONTHLY`. | <pre>list(object({<br/>    id           = string<br/>    refresh_type = optional(string, "FULL")<br/>    start_at     = optional(string)<br/>    schedule_frequency = object({<br/>      timezone     = optional(string)<br/>      interval     = optional(string, "DAILY")<br/>      time_of_day  = optional(string, "00:00")<br/>      day_of_week  = optional(string)<br/>      day_of_month = optional(string)<br/>    })<br/>  }))</pre> | `[]` | no |
-| <a name="input_resource_group_description"></a> [resource\_group\_description](#input\_resource\_group\_description) | (Optional) The description of Resource Group. | `string` | `"Managed by Terraform."` | no |
-| <a name="input_resource_group_enabled"></a> [resource\_group\_enabled](#input\_resource\_group\_enabled) | (Optional) Whether to create Resource Group to find and group AWS resources which are created by this module. | `bool` | `true` | no |
-| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Optional) The name of the Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. | `string` | `""` | no |
+| <a name="input_region"></a> [region](#input\_region) | (Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region. | `string` | `null` | no |
+| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | (Optional) A configurations of Resource Group for this module. `resource_group` as defined below.<br/>    (Optional) `enabled` - Whether to create Resource Group to find and group AWS resources which are created by this module. Defaults to `true`.<br/>    (Optional) `name` - The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. If not provided, a name will be generated using the module name and instance name.<br/>    (Optional) `description` - The description of Resource Group. Defaults to `Managed by Terraform.`. | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string, "")<br/>    description = optional(string, "Managed by Terraform.")<br/>  })</pre> | `{}` | no |
 | <a name="input_row_level_permission_data_set"></a> [row\_level\_permission\_data\_set](#input\_row\_level\_permission\_data\_set) | (Optional) Configuration for row-level permission data set. | <pre>object({<br/>    arn               = string<br/>    permission_policy = string<br/>    format_version    = optional(string)<br/>    namespace         = optional(string)<br/>    status            = optional(string)<br/>  })</pre> | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A map of tags to add to all resources. | `map(string)` | `{}` | no |
 
@@ -79,5 +78,7 @@ This module creates following resources.
 | <a name="output_refresh_config"></a> [refresh\_config](#output\_refresh\_config) | The refresh configuration for the data set. |
 | <a name="output_refresh_ingestions"></a> [refresh\_ingestions](#output\_refresh\_ingestions) | A list of refresh ingestions for the data set. |
 | <a name="output_refresh_schedules"></a> [refresh\_schedules](#output\_refresh\_schedules) | A list of refresh schedules for the data set. |
+| <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |
+| <a name="output_resource_group"></a> [resource\_group](#output\_resource\_group) | The resource group created to manage resources in this module. |
 | <a name="output_row_level_permission_data_set"></a> [row\_level\_permission\_data\_set](#output\_row\_level\_permission\_data\_set) | The row-level permission data set configuration. |
 <!-- END_TF_DOCS -->

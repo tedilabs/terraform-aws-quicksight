@@ -51,6 +51,11 @@ locals {
   }
 }
 
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_quicksight_data_set.this.region
+}
+
 output "id" {
   description = "The ID of the data set."
   value       = aws_quicksight_data_set.this.data_set_id
@@ -316,32 +321,6 @@ output "data_set_usage" {
   }
 }
 
-# output "debug" {
-#   value = {
-#     main = {
-#       for k, v in aws_quicksight_data_set.this :
-#       k => v
-#       if !contains(["arn", "name", "data_set_id", "tags", "tags_all", "import_mode", "aws_account_id", "permissions", "data_set_usage_configuration", "id", "output_columns", "column_level_permission_rules", "column_groups", "field_folders", "refresh_properties", "logical_table_map"], k)
-#     }
-#     # refresh_schedules = {
-#     #   for id, schedule in aws_quicksight_refresh_schedule.this :
-#     #   id => {
-#     #     for k, v in schedule :
-#     #     k => v
-#     #     if !contains(["schedule_id", "aws_account_id", "arn", "data_set_id", "id", "schedule"], k)
-#     #   }
-#     # }
-#     # refresh_ingestions = {
-#     #   for id, ingestion in aws_quicksight_ingestion.this :
-#     #   id => {
-#     #     for k, v in ingestion :
-#     #     k => v
-#     #     if !contains(["aws_account_id", "data_set_id", "ingestion_id", "arn", "id", "ingestion_type", "ingestion_status"], k)
-#     #   }
-#     # }
-#   }
-# }
-
 output "resource_group" {
   description = "The resource group created to manage resources in this module."
   value = merge(
@@ -357,3 +336,29 @@ output "resource_group" {
     )
   )
 }
+
+# output "debug" {
+#   value = {
+#     main = {
+#       for k, v in aws_quicksight_data_set.this :
+#       k => v
+#       if !contains(["arn", "name", "data_set_id", "tags", "tags_all", "import_mode", "aws_account_id", "permissions", "data_set_usage_configuration", "id", "output_columns", "column_level_permission_rules", "column_groups", "field_folders", "refresh_properties", "logical_table_map", "region"], k)
+#     }
+#     # refresh_schedules = {
+#     #   for id, schedule in aws_quicksight_refresh_schedule.this :
+#     #   id => {
+#     #     for k, v in schedule :
+#     #     k => v
+#     #     if !contains(["schedule_id", "aws_account_id", "arn", "data_set_id", "id", "schedule", "region"], k)
+#     #   }
+#     # }
+#     # refresh_ingestions = {
+#     #   for id, ingestion in aws_quicksight_ingestion.this :
+#     #   id => {
+#     #     for k, v in ingestion :
+#     #     k => v
+#     #     if !contains(["aws_account_id", "data_set_id", "ingestion_id", "arn", "id", "ingestion_type", "ingestion_status", "region"], k)
+#     #   }
+#     # }
+#   }
+# }

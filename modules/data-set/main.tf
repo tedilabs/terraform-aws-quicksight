@@ -57,7 +57,11 @@ locals {
 # QuickSight Data Set
 ###################################################
 
+# TODO:
+# - `row_level_permission_tag_configuration`
 resource "aws_quicksight_data_set" "this" {
+  region = var.region
+
   aws_account_id = local.account_id
 
   data_set_id = var.name
@@ -377,6 +381,7 @@ resource "aws_quicksight_data_set" "this" {
 
   dynamic "row_level_permission_data_set" {
     for_each = var.row_level_permission_data_set != null ? [var.row_level_permission_data_set] : []
+
     content {
       arn               = row_level_permission_data_set.value.arn
       permission_policy = row_level_permission_data_set.value.permission_policy
