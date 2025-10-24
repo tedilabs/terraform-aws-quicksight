@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_quicksight_data_source.this.region
+}
+
 output "id" {
   description = "The ID of the QuickSight data source."
   value       = aws_quicksight_data_source.this.data_source_id
@@ -114,14 +119,6 @@ output "permissions" {
   value       = aws_quicksight_data_source.this.permission
 }
 
-# output "debug" {
-#   value = {
-#     for k, v in aws_quicksight_data_source.this :
-#     k => v
-#     if !contains(["aws_account_id", "arn", "id", "name", "data_source_id", "tags", "tags_all", "type", "vpc_connection_properties", "ssl_properties", "parameters", "credentials", "permission"], k)
-#   }
-# }
-
 output "resource_group" {
   description = "The resource group created to manage resources in this module."
   value = merge(
@@ -137,3 +134,11 @@ output "resource_group" {
     )
   )
 }
+
+# output "debug" {
+#   value = {
+#     for k, v in aws_quicksight_data_source.this :
+#     k => v
+#     if !contains(["aws_account_id", "arn", "id", "name", "data_source_id", "tags", "tags_all", "type", "vpc_connection_properties", "ssl_properties", "parameters", "credentials", "permission", "region"], k)
+#   }
+# }

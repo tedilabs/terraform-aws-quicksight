@@ -38,10 +38,12 @@ locals {
 
 
 ###################################################
-# QuickSight Data Source - Generic
+# QuickSight Data Source
 ###################################################
 
 resource "aws_quicksight_data_source" "this" {
+  region = var.region
+
   aws_account_id = local.account_id
 
   data_source_id = var.name
