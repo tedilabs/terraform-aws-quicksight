@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = local.group.region
+}
+
 output "id" {
   description = "The ID of the QuickSight group."
   value       = local.group.id

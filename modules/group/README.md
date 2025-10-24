@@ -11,8 +11,8 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.100 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
@@ -42,6 +42,7 @@ No modules.
 | <a name="input_description"></a> [description](#input\_description) | (Optional) A description for the QuickSight group. Only applicable for `INTERNAL` type groups. | `string` | `"Managed by Terraform."` | no |
 | <a name="input_members"></a> [members](#input\_members) | (Optional) A set of user names that you want to add to the group membership. | `set(string)` | `[]` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | (Optional) The namespace that you want the group to be a part of. | `string` | `"default"` | no |
+| <a name="input_region"></a> [region](#input\_region) | (Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region. | `string` | `null` | no |
 | <a name="input_role"></a> [role](#input\_role) | (Optional) The QuickSight role to assign to the group. Valid values are `NONE`, `ADMIN`, `ADMIN_PRO`, `AUTHOR`, `AUTHOR_PRO`, `READER`, and `READER_PRO`. Defaults to `NONE`. | `string` | `"NONE"` | no |
 | <a name="input_type"></a> [type](#input\_type) | (Optional) The type of the QuickSight group. Valid values are `INTERNAL` and `EXTERNAL`. Defaults to `INTERNAL`. `EXTERNAL` for the Active Directory or IAM Identity Center authentication method. | `string` | `"INTERNAL"` | no |
 
@@ -56,6 +57,7 @@ No modules.
 | <a name="output_name"></a> [name](#output\_name) | The name of the QuickSight group. |
 | <a name="output_namespace"></a> [namespace](#output\_namespace) | The namespace that the group belongs to. |
 | <a name="output_principal_id"></a> [principal\_id](#output\_principal\_id) | The principal ID of the group. |
+| <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |
 | <a name="output_role"></a> [role](#output\_role) | The QuickSight role assigned to the group. |
 | <a name="output_type"></a> [type](#output\_type) | The type of the QuickSight group. |
 <!-- END_TF_DOCS -->
