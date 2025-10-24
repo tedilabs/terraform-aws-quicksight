@@ -24,6 +24,10 @@ locals {
 resource "aws_quicksight_user" "this" {
   count = var.type == "INTERNAL" ? 1 : 0
 
+  region = var.region
+
+  aws_account_id = local.account_id
+
   # INFO: Not support `IAM` identity type in this module
   identity_type = "QUICKSIGHT"
   namespace     = var.namespace
@@ -31,17 +35,17 @@ resource "aws_quicksight_user" "this" {
 
   email     = var.email
   user_role = var.role
-
-  aws_account_id = local.account_id
 }
 
 data "aws_quicksight_user" "this" {
   count = var.type == "EXTERNAL" ? 1 : 0
 
-  namespace = var.namespace
-  user_name = var.name
+  region = var.region
 
   aws_account_id = local.account_id
+
+  namespace = var.namespace
+  user_name = var.name
 }
 
 locals {

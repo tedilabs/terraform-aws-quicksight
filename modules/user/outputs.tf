@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = local.user.region
+}
+
 output "id" {
   description = "The ID of the QuickSight user."
   value       = local.user.id
@@ -52,6 +57,6 @@ output "role" {
 #   value = {
 #     for k, v in local.user :
 #     k => v
-#     if !contains(["id", "arn", "user_name", "namespace", "email", "user_role", "identity_type", "principal_id", "aws_account_id", "active"], k)
+#     if !contains(["id", "arn", "user_name", "namespace", "email", "user_role", "identity_type", "principal_id", "aws_account_id", "active", "region"], k)
 #   }
 # }
