@@ -17,6 +17,8 @@ locals {
 data "aws_caller_identity" "this" {}
 
 data "aws_subnet" "selected" {
+  region = var.region
+
   id = var.subnets[0]
 }
 
@@ -31,6 +33,8 @@ locals {
 ###################################################
 
 resource "aws_quicksight_vpc_connection" "this" {
+  region = var.region
+
   aws_account_id = local.account_id
 
   vpc_connection_id = var.name
@@ -61,4 +65,3 @@ resource "aws_quicksight_vpc_connection" "this" {
   #   delete = var.timeouts.delete
   # }
 }
-

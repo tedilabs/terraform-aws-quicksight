@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_quicksight_vpc_connection.this.region
+}
+
 output "id" {
   description = "The ID of the QuickSight VPC connection."
   value       = aws_quicksight_vpc_connection.this.vpc_connection_id

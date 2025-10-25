@@ -3,30 +3,29 @@
 This module creates following resources.
 
 - `aws_quicksight_vpc_connection`
-- `aws_quicksight_group_membership` (optional)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_assert"></a> [assert](#requirement\_assert) | >= 0.15 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.100 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.18.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_execution_role"></a> [execution\_role](#module\_execution\_role) | tedilabs/account/aws//modules/iam-role | ~> 0.31.0 |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
-| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 0.32.0 |
+| <a name="module_execution_role"></a> [execution\_role](#module\_execution\_role) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
+| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 1.0.0 |
 
 ## Resources
 
@@ -48,9 +47,8 @@ This module creates following resources.
 | <a name="input_dns_resolvers"></a> [dns\_resolvers](#input\_dns\_resolvers) | (Optional) A list of IP addresses of DNS resolver endpoints for the QuickSight VPC connection. | `set(string)` | `[]` | no |
 | <a name="input_execution_role"></a> [execution\_role](#input\_execution\_role) | (Optional) The ARN (Amazon Resource Name) of the IAM Role to associate with the QuickSight VPC connection. Only required if `default_execution_role.enabled` is `false`. | `string` | `null` | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
-| <a name="input_resource_group_description"></a> [resource\_group\_description](#input\_resource\_group\_description) | (Optional) The description of Resource Group. | `string` | `"Managed by Terraform."` | no |
-| <a name="input_resource_group_enabled"></a> [resource\_group\_enabled](#input\_resource\_group\_enabled) | (Optional) Whether to create Resource Group to find and group AWS resources which are created by this module. | `bool` | `true` | no |
-| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Optional) The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. | `string` | `""` | no |
+| <a name="input_region"></a> [region](#input\_region) | (Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region. | `string` | `null` | no |
+| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | (Optional) A configurations of Resource Group for this module. `resource_group` as defined below.<br/>    (Optional) `enabled` - Whether to create Resource Group to find and group AWS resources which are created by this module. Defaults to `true`.<br/>    (Optional) `name` - The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. If not provided, a name will be generated using the module name and instance name.<br/>    (Optional) `description` - The description of Resource Group. Defaults to `Managed by Terraform.`. | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string, "")<br/>    description = optional(string, "Managed by Terraform.")<br/>  })</pre> | `{}` | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | (Optional) A list of security group IDs to associate with the QuickSight VPC connection. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A map of tags to add to all resources. | `map(string)` | `{}` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | (Optional) How long to wait for the QuickSight VPC connection to be created/updated/deleted. | <pre>object({<br/>    create = optional(string, "5m")<br/>    update = optional(string, "5m")<br/>    delete = optional(string, "5m")<br/>  })</pre> | `{}` | no |
@@ -67,6 +65,8 @@ This module creates following resources.
 | <a name="output_execution_role"></a> [execution\_role](#output\_execution\_role) | The ID of execution role for the QuickSight VPC connection. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the QuickSight VPC connection. |
 | <a name="output_name"></a> [name](#output\_name) | The identifier of the QuickSight VPC connection. |
+| <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |
+| <a name="output_resource_group"></a> [resource\_group](#output\_resource\_group) | The resource group created to manage resources in this module. |
 | <a name="output_security_groups"></a> [security\_groups](#output\_security\_groups) | A list of security group IDs for the QuickSight VPC connection. |
 | <a name="output_status"></a> [status](#output\_status) | The availability status of the QuickSight VPC connection. Valid values are `AVAILABLE`, `UNAVAILABLE` or `PARTIALLY_AVAILABLE`. |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | A list of subnet IDs for the QuickSight VPC connection. |
