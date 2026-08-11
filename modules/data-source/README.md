@@ -43,7 +43,7 @@ parameters = {
 
 ```hcl
 parameters = {
-  work_group = "primary"              # Optional, defaults to "primary"
+  workgroup = "primary"               # Optional, defaults to "primary"
 }
 ```
 
@@ -64,7 +64,8 @@ parameters = {
 
 ```hcl
 module "aurora_postgresql_data_source" {
-  source = "tedilabs/quicksight/aws//modules/data-source"
+  source  = "tedilabs/quicksight/aws//modules/data-source"
+  version = "~> 0.3.0"
 
   name         = "aurora-postgresql-ds"
   display_name = "Aurora PostgreSQL Data Source"
@@ -87,14 +88,15 @@ module "aurora_postgresql_data_source" {
 
 ```hcl
 module "athena_data_source" {
-  source = "tedilabs/quicksight/aws//modules/data-source"
+  source  = "tedilabs/quicksight/aws//modules/data-source"
+  version = "~> 0.3.0"
 
   name         = "athena-ds"
   display_name = "Athena Data Source"
   type         = "ATHENA"
 
   parameters = {
-    work_group = "analytics-workgroup"
+    workgroup = "analytics-workgroup"
   }
 
   # Athena typically doesn't require credentials
@@ -106,7 +108,8 @@ module "athena_data_source" {
 
 ```hcl
 module "s3_data_source" {
-  source = "tedilabs/quicksight/aws//modules/data-source"
+  source  = "tedilabs/quicksight/aws//modules/data-source"
+  version = "~> 0.3.0"
 
   name         = "s3-ds"
   display_name = "S3 Data Source"
