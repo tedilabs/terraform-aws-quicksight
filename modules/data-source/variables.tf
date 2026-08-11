@@ -112,27 +112,24 @@ variable "credentials" {
   sensitive = true
 
   validation {
-    condition = anytrue([
-      var.credentials == null,
-      var.credentials.type != "CREDENTIAL_PAIR",
-      var.credentials.type == "CREDENTIAL_PAIR" && var.credentials.credential_pair != null,
-    ])
+    condition = (var.credentials == null
+      ? true
+      : var.credentials.type != "CREDENTIAL_PAIR" || var.credentials.credential_pair != null
+    )
     error_message = "If `type` is set to `CREDENTIAL_PAIR`, then `credential_pair` must be provided."
   }
   validation {
-    condition = anytrue([
-      var.credentials == null,
-      var.credentials.type != "COPY_DATA_SOURCE",
-      var.credentials.type == "COPY_DATA_SOURCE" && var.credentials.data_source != null,
-    ])
+    condition = (var.credentials == null
+      ? true
+      : var.credentials.type != "COPY_DATA_SOURCE" || var.credentials.data_source != null
+    )
     error_message = "If `type` is set to `COPY_DATA_SOURCE`, then `data_source` must be provided."
   }
   validation {
-    condition = anytrue([
-      var.credentials == null,
-      var.credentials.type != "SECRETS_MANAGER",
-      var.credentials.type == "SECRETS_MANAGER" && var.credentials.secrets_manager_secret != null,
-    ])
+    condition = (var.credentials == null
+      ? true
+      : var.credentials.type != "SECRETS_MANAGER" || var.credentials.secrets_manager_secret != null
+    )
     error_message = "If `type` is set to `SECRETS_MANAGER`, then `secrets_manager_secret` must be provided."
   }
 }
