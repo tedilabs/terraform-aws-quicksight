@@ -10,7 +10,7 @@ provider "aws" {
 module "folder__dev" {
   source = "../../modules/folder"
   # source  = "tedilabs/quicksight/aws//modules/folder"
-  # version = "~> 0.5.0"
+  # version = "~> 0.3.0"
 
   name          = "dev"
   display_name  = "Dev Folder"
@@ -32,7 +32,7 @@ module "folder__dev" {
 module "folder__test" {
   source = "../../modules/folder"
   # source  = "tedilabs/quicksight/aws//modules/folder"
-  # version = "~> 0.5.0"
+  # version = "~> 0.3.0"
 
   name          = "test"
   display_name  = "Test Folder"
