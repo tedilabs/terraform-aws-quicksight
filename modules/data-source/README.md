@@ -170,33 +170,33 @@ The IAM role specified in `iam_role` should have:
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.18.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_quicksight_data_source.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_data_source) | resource |
 | [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | (Required) An identifier for the QuickSight data source. This ID is a unique identifier for each AWS Region in an AWS account. | `string` | n/a | yes |
 | <a name="input_parameters"></a> [parameters](#input\_parameters) | (Required) A configuration for parameters used to connect to the data source. The structure varies based on the data source type:<br/><br/>  **AURORA\_POSTGRESQL/AURORA/MYSQL/ORACLE/POSTGRESQL/SQLSERVER/MARIADB:**<br/>    (Required) `database` - The name of the database to connect to.<br/>    (Required) `host` - The hostname of the database server.<br/>    (Optional) `port` - The port number for the database server. Defaults vary by type.<br/><br/>  **ATHENA:**<br/>    (Optional) `workgroup` - The name of the Athena workgroup. Defaults to `primary`.<br/><br/>  **S3:**<br/>    (Required) `manifest_file_location` - The Amazon S3 location of the manifest file in the format `s3://bucket/key`.<br/>    (Optional) `iam_role` - The IAM role ARN that QuickSight uses to access the S3 bucket instead of an account-wide IAM role. Recommended for security best practices. | `any` | n/a | yes |
 | <a name="input_type"></a> [type](#input\_type) | (Required) The type of the QuickSight data source. Valid values are `AURORA_POSTGRESQL`, `AURORA`, `ATHENA`, `MYSQL`, `ORACLE`, `POSTGRESQL`, `S3`, `SQLSERVER`, `MARIADB`. | `string` | n/a | yes |
@@ -213,7 +213,7 @@ The IAM role specified in `iam_role` should have:
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the QuickSight data source. |
 | <a name="output_connection_string"></a> [connection\_string](#output\_connection\_string) | The connection string for the database (when applicable). |
 | <a name="output_credentials"></a> [credentials](#output\_credentials) | The configuration for credentials used to connect to the data source. |
