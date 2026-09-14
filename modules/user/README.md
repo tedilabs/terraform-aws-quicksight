@@ -8,15 +8,15 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.4.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
@@ -25,7 +25,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_quicksight_user.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_user) | resource |
 | [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_quicksight_user.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/quicksight_user) | data source |
@@ -33,7 +33,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | (Required) A name for the QuickSight user. | `string` | n/a | yes |
 | <a name="input_email"></a> [email](#input\_email) | (Optional) The email address of the user that you want to register. Only required for `INTERNAL` type users. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | (Optional) The namespace that you want the user to be a part of. | `string` | `"default"` | no |
@@ -44,7 +44,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the QuickSight user. |
 | <a name="output_email"></a> [email](#output\_email) | The email address of the user. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the QuickSight user. |

@@ -10,26 +10,26 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.18.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_quicksight_data_set.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_data_set) | resource |
 | [aws_quicksight_ingestion.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_ingestion) | resource |
 | [aws_quicksight_refresh_schedule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_refresh_schedule) | resource |
@@ -38,7 +38,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | (Required) An identifier for the QuickSight data set. This ID is a unique identifier for each AWS Region in an AWS account. | `string` | n/a | yes |
 | <a name="input_column_folders"></a> [column\_folders](#input\_column\_folders) | (Optional) A map of column folder configurations. Each entry represents a column folder (field folder) in the data set. A column folder is a logical grouping of columns that can be used to organize and categorize columns within the data set. Each key of `column_folders` is the folder name. `/` is used as a separator for subfolders. The folder name can be used to create a hierarchy of folders. Each value of `column_folders` as defined below.<br/>    (Optional) `columns` - A set of columns that belong to this folder. A column can only belong to one folder.<br/>    (Optional) `description` - A description for the column folder. Defaults to "Managed by Terraform." | <pre>map(object({<br/>    columns     = optional(set(string), [])<br/>    description = optional(string, "Managed by Terraform.")<br/>  }))</pre> | `{}` | no |
 | <a name="input_column_level_permission_rules"></a> [column\_level\_permission\_rules](#input\_column\_level\_permission\_rules) | (Optional) A list of column-level permission rules. To create a restricted column, you add it to one or more rules. Each rule must contain at least one column and at least one user or group. To be able to see a restricted column, a user or group needs to be added to a rule for that column. Each rule specifies which columns are accessible to which principals. Each item of `column_level_permission_rules` as defined below.<br/>    (Required) `columns` - A set of column names that the rule applies to. At least one column must be specified.<br/>    (Required) `principals` - A set of ARNs (Amazon Resource Names) of the principals (users or groups) that this rule applies to. At least one principal must be specified. Maximum of 100 items. | <pre>list(object({<br/>    columns    = optional(set(string), [])<br/>    principals = optional(set(string), [])<br/>  }))</pre> | `[]` | no |
@@ -61,7 +61,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the data set. |
 | <a name="output_column_folders"></a> [column\_folders](#output\_column\_folders) | A map of column folders in the data set. |
 | <a name="output_column_level_permission_rules"></a> [column\_level\_permission\_rules](#output\_column\_level\_permission\_rules) | A list of column-level permission rules. |

@@ -8,7 +8,7 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_assert"></a> [assert](#requirement\_assert) | >= 0.15 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
@@ -16,21 +16,21 @@ This module creates following resources.
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.18.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_execution_role"></a> [execution\_role](#module\_execution\_role) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
-| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 1.0.0 |
+| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 1.2.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_quicksight_vpc_connection.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_vpc_connection) | resource |
 | [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_subnet.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
@@ -38,10 +38,10 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | (Required) An identifier for the QuickSight VPC connection. This ID is a unique identifier for each AWS Region in an AWS account. | `string` | n/a | yes |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | (Required) A list of subnet IDs to associate with the QuickSight VPC connection. At least two subnets are required. | `list(string)` | n/a | yes |
-| <a name="input_default_execution_role"></a> [default\_execution\_role](#input\_default\_execution\_role) | (Optional) A configuration for the default execution role for the QuickSight VPC connection. Use `execution_role` if `default_execution_role.enabled` is `false`. `default_execution_role` as defined below.<br/>    (Optional) `enabled` - Whether to create the default execution role. Defaults to `true`.<br/>    (Optional) `name` - The name of the default execution role. Defaults to `quicksight-vpc-connection-${var.name}`.<br/>    (Optional) `path` - The path of the default execution role. Defaults to `/`.<br/>    (Optional) `description` - The description of the default execution role.<br/>    (Optional) `policies` - A list of IAM policy ARNs to attach to the default execution role. Defaults to `[]`.<br/>    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default execution role. (`name` => `policy`). | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string)<br/>    path        = optional(string, "/")<br/>    description = optional(string, "Managed by Terraform.")<br/><br/>    policies        = optional(list(string), [])<br/>    inline_policies = optional(map(string), {})<br/>  })</pre> | `{}` | no |
+| <a name="input_default_execution_role"></a> [default\_execution\_role](#input\_default\_execution\_role) | (Optional) A configuration for the default execution role for the QuickSight VPC connection. Use `execution_role` if `default_execution_role.enabled` is `false`. `default_execution_role` as defined below.<br/>    (Optional) `enabled` - Whether to create the default execution role. Defaults to `true`.<br/>    (Optional) `name` - The name of the default execution role. Defaults to `quicksight-vpc-connection-${var.name}`.<br/>    (Optional) `path` - The path of the default execution role. Defaults to `/`.<br/>    (Optional) `description` - The description of the default execution role.<br/>    (Optional) `policies` - A list of IAM policy ARNs to attach to the default execution role. Defaults to `[]`.<br/>    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default execution role. (`name` => `policy`).<br/>    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default execution role. | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string)<br/>    path        = optional(string, "/")<br/>    description = optional(string, "Managed by Terraform.")<br/><br/>    policies             = optional(list(string), [])<br/>    inline_policies      = optional(map(string), {})<br/>    permissions_boundary = optional(string)<br/>  })</pre> | `{}` | no |
 | <a name="input_default_security_group"></a> [default\_security\_group](#input\_default\_security\_group) | (Optional) The configuration of the default security group for the QuickSight VPC connection. `default_security_group` block as defined below.<br/>    (Optional) `enabled` - Whether to use the default security group. Defaults to `true`.<br/>    (Optional) `name` - The name of the default security group. If not provided, the QuickSight VPC connection ID is used for the name of security group.<br/>    (Optional) `description` - The description of the default security group. Defaults to `Managed by Terraform`.<br/>    (Optional) `ingress_rules` - A list of ingress rules in a security group. Defaults to `[]`. Each block of `ingress_rules` as defined below.<br/>      (Optional) `id` - The ID of the ingress rule. This value is only used internally within Terraform code.<br/>      (Optional) `description` - The description of the rule.<br/>      (Required) `protocol` - The protocol to match. Note that if `protocol` is set to `-1`, it translates to all protocols, all port ranges, and `from_port` and `to_port` values should not be defined.<br/>      (Required) `from_port` - The start of port range for the protocols.<br/>      (Required) `to_port` - The end of port range for the protocols.<br/>      (Optional) `ipv4_cidrs` - The IPv4 network ranges to allow, in CIDR notation.<br/>      (Optional) `ipv6_cidrs` - The IPv6 network ranges to allow, in CIDR notation.<br/>      (Optional) `prefix_lists` - The prefix list IDs to allow.<br/>      (Optional) `security_groups` - The source security group IDs to allow.<br/>      (Optional) `self` - Whether the security group itself will be added as a source to this ingress rule.<br/>    (Optional) `egress_rules` - A list of egress rules in a security group. Defaults to `[{ id = "default", protocol = -1, from_port = 1, to_port=65535, ipv4_cidrs = ["0.0.0.0/0"] }]`. Each block of `egress_rules` as defined below.<br/>      (Optional) `id` - The ID of the egress rule. This value is only used internally within Terraform code.<br/>      (Optional) `description` - The description of the rule.<br/>      (Required) `protocol` - The protocol to match. Note that if `protocol` is set to `-1`, it translates to all protocols, all port ranges, and `from_port` and `to_port` values should not be defined.<br/>      (Required) `from_port` - The start of port range for the protocols.<br/>      (Required) `to_port` - The end of port range for the protocols.<br/>      (Optional) `ipv4_cidrs` - The IPv4 network ranges to allow, in CIDR notation.<br/>      (Optional) `ipv6_cidrs` - The IPv6 network ranges to allow, in CIDR notation.<br/>      (Optional) `prefix_lists` - The prefix list IDs to allow.<br/>      (Optional) `security_groups` - The source security group IDs to allow.<br/>      (Optional) `self` - Whether the security group itself will be added as a source to this egress rule. | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string)<br/>    description = optional(string, "Managed by Terraform.")<br/>    ingress_rules = optional(<br/>      list(object({<br/>        id              = optional(string)<br/>        description     = optional(string, "Managed by Terraform.")<br/>        protocol        = string<br/>        from_port       = number<br/>        to_port         = number<br/>        ipv4_cidrs      = optional(list(string), [])<br/>        ipv6_cidrs      = optional(list(string), [])<br/>        prefix_lists    = optional(list(string), [])<br/>        security_groups = optional(list(string), [])<br/>        self            = optional(bool, false)<br/>      })),<br/>      []<br/>    )<br/>    egress_rules = optional(<br/>      list(object({<br/>        id              = string<br/>        description     = optional(string, "Managed by Terraform.")<br/>        protocol        = string<br/>        from_port       = number<br/>        to_port         = number<br/>        ipv4_cidrs      = optional(list(string), [])<br/>        ipv6_cidrs      = optional(list(string), [])<br/>        prefix_lists    = optional(list(string), [])<br/>        security_groups = optional(list(string), [])<br/>        self            = optional(bool, false)<br/>      })),<br/>      [{<br/>        id          = "default"<br/>        description = "Allow all outbound traffic."<br/>        protocol    = "-1"<br/>        from_port   = 1<br/>        to_port     = 65535<br/>        ipv4_cidrs  = ["0.0.0.0/0"]<br/>      }]<br/>    )<br/>  })</pre> | `{}` | no |
 | <a name="input_display_name"></a> [display\_name](#input\_display\_name) | (Optional) The display name for the QuickSight VPC connection. | `string` | `""` | no |
 | <a name="input_dns_resolvers"></a> [dns\_resolvers](#input\_dns\_resolvers) | (Optional) A list of IP addresses of DNS resolver endpoints for the QuickSight VPC connection. | `set(string)` | `[]` | no |
@@ -56,7 +56,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the QuickSight VPC connection. |
 | <a name="output_default_execution_role"></a> [default\_execution\_role](#output\_default\_execution\_role) | The configuration of the default execution role for the QuickSight VPC connection. |
 | <a name="output_default_security_group"></a> [default\_security\_group](#output\_default\_security\_group) | The configuration of the default security group for the QuickSight VPC connection. |

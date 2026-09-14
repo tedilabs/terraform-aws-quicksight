@@ -9,15 +9,15 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.17.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
@@ -26,7 +26,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_quicksight_account_settings.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_account_settings) | resource |
 | [aws_quicksight_account_subscription.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_account_subscription) | resource |
 | [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
@@ -34,7 +34,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_edition"></a> [edition](#input\_edition) | (Required) The edition of QuickSight to use. Valid values are `STANDARD` and `ENTERPRISE`. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | (Required) A name for the QuickSight account settings. | `string` | n/a | yes |
 | <a name="input_notification_email"></a> [notification\_email](#input\_notification\_email) | (Required) The email address to send notifications for the QuickSight account and subscription. | `string` | n/a | yes |
@@ -50,7 +50,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_active_directory"></a> [active\_directory](#output\_active\_directory) | The configuration for Active Directory authentication. |
 | <a name="output_authentication_method"></a> [authentication\_method](#output\_authentication\_method) | The authentication method for the QuickSight account. |
 | <a name="output_default_namespace"></a> [default\_namespace](#output\_default\_namespace) | The default namespace for the QuickSight account. |
