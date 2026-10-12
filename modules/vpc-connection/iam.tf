@@ -29,6 +29,8 @@ module "execution_role" {
     }
   ]
 
+  assumable_roles = var.default_execution_role.assumable_roles
+
   policies = var.default_execution_role.policies
   inline_policies = merge({
     "vpc-connection" = jsonencode(yamldecode(<<EOF
