@@ -25,6 +25,7 @@ variable "default_execution_role" {
     (Optional) `name` - The name of the default execution role. Defaults to `quicksight-vpc-connection-$${var.name}`.
     (Optional) `path` - The path of the default execution role. Defaults to `/`.
     (Optional) `description` - The description of the default execution role.
+    (Optional) `assumable_roles` - A set of IAM role ARNs that can be assumed by this role. Defaults to `[]`.
     (Optional) `policies` - A list of IAM policy ARNs to attach to the default execution role. Defaults to `[]`.
     (Optional) `inline_policies` - A Map of inline IAM policies to attach to the default execution role. (`name` => `policy`).
     (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the default execution role.
@@ -35,6 +36,7 @@ variable "default_execution_role" {
     path        = optional(string, "/")
     description = optional(string, "Managed by Terraform.")
 
+    assumable_roles      = optional(set(string), [])
     policies             = optional(list(string), [])
     inline_policies      = optional(map(string), {})
     permissions_boundary = optional(string)
