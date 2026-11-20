@@ -371,12 +371,12 @@ variable "geo_spatial_column_groups" {
   description = <<EOF
   (Optional) A set of geographic column groups. A geo spatial column group is a logical grouping of two or more columns in the data set that together represent a geographical hierarchy, such as country, state, and city. This configuration allows QuickSight to recognize and use these columns as a spatial hierarchy for advanced geo-mapping and drill-down capabilities in visualizations. Each item of `geo_spatial_column_groups` as defined below.
     (Required) `name` - A display name for the geographical hierarchy.
-    (Optional) `country_code` - The country code for the geographic column group. Valid values are ISO 3166-1 alpha-2 country codes like `US`.
+    (Required) `country_code` - The country code for the geographic column group. Valid values are ISO 3166-1 alpha-2 country codes like `US`.
     (Required) `columns` - A list of columns that are part of the geographical hierarchy.
   EOF
   type = list(object({
     name         = string
-    country_code = optional(string)
+    country_code = string
     columns      = optional(list(string), [])
   }))
   default  = []
