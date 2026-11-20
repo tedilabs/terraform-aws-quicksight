@@ -193,7 +193,7 @@ variable "logical_tables" {
       (Optional) `join` - A join instruction if the source type is `JOIN`. `join` as defined below.
         (Required) `left_operand` - The operand on the left side of the join. This can be a logical table id.
         (Required) `right_operand` - The operand on the right side of the join. This can be a logical table id.
-        (Required) `type` - The type of the join. Valid values are `INNER`, `LEFT`, `RIGHT`, and `FULL`.
+        (Required) `type` - The type of the join. Valid values are `INNER`, `OUTER`, `LEFT`, and `RIGHT`.
         (Required) `on_clause` - The SQL expression that defines the `ON` clause of the join.
         (Optional) `left_join_key_properties` - Properties for the left join key. `left_join_key_properties` as defined below.
           (Optional) `unique_key` - Whether the left join key is unique. Defaults to `false`.
@@ -319,10 +319,10 @@ variable "logical_tables" {
       for table in var.logical_tables :
       table.source.type != "JOIN" || (
         table.source.type == "JOIN" &&
-        contains(["INNER", "LEFT", "RIGHT", "FULL"], table.source.join.type)
+        contains(["INNER", "OUTER", "LEFT", "RIGHT"], table.source.join.type)
       )
     ])
-    error_message = "Valid values for `source.join.type` are `INNER`, `LEFT`, `RIGHT`, and `FULL`."
+    error_message = "Valid values for `source.join.type` are `INNER`, `OUTER`, `LEFT`, and `RIGHT`."
   }
   validation {
     condition = alltrue([
