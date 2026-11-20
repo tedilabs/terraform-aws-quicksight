@@ -150,7 +150,7 @@ output "logical_tables" {
                 for column in transform.create_columns.columns : {
                   id         = column.column_id
                   name       = column.column_name
-                  expression = column.column_expression
+                  expression = column.expression
                 }
               ]
             }
