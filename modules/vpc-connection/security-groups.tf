@@ -10,7 +10,6 @@ locals {
 # Security Group for VPC Connection
 ###################################################
 
-# TODO: support `region`
 module "security_group" {
   source  = "tedilabs/network/aws//modules/security-group"
   version = "~> 1.3.0"

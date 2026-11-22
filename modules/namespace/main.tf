@@ -25,8 +25,6 @@ locals {
 # QuickSight Namespace
 ###################################################
 
-# INFO: Not supported attributes
-# - `aws_account_id`
 resource "aws_quicksight_namespace" "this" {
   region = var.region
 

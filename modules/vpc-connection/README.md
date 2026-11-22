@@ -64,7 +64,7 @@ This module creates following resources.
 | <a name="output_default_security_group"></a> [default\_security\_group](#output\_default\_security\_group) | The configuration of the default security group for the QuickSight VPC connection. |
 | <a name="output_display_name"></a> [display\_name](#output\_display\_name) | The display name of the QuickSight VPC connection. |
 | <a name="output_dns_resolvers"></a> [dns\_resolvers](#output\_dns\_resolvers) | A list of IP addresses of DNS resolver endpoints for the QuickSight VPC connection. |
-| <a name="output_execution_role"></a> [execution\_role](#output\_execution\_role) | The ID of execution role for the QuickSight VPC connection. |
+| <a name="output_execution_role"></a> [execution\_role](#output\_execution\_role) | The ARN of execution role for the QuickSight VPC connection. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the QuickSight VPC connection. |
 | <a name="output_name"></a> [name](#output\_name) | The identifier of the QuickSight VPC connection. |
 | <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |

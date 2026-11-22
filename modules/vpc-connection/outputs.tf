@@ -40,7 +40,7 @@ output "default_execution_role" {
 }
 
 output "execution_role" {
-  description = "The ID of execution role for the QuickSight VPC connection."
+  description = "The ARN of execution role for the QuickSight VPC connection."
   value       = aws_quicksight_vpc_connection.this.role_arn
 }
 
