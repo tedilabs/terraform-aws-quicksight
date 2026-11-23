@@ -58,7 +58,10 @@ variable "permissions" {
   validation {
     condition = alltrue([
       for permission in var.permissions :
-      contains(["OWNER", "READER"], permission.role) || length(permission.actions) > 0
+      (permission.role != null
+        ? contains(["OWNER", "READER"], permission.role)
+        : length(permission.actions) > 0
+      )
     ])
     error_message = "Valid values for `permission.role` are `OWNER` and `READER`. If `role` is not set, then `actions` must be specified."
   }
