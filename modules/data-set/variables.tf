@@ -202,7 +202,7 @@ variable "logical_tables" {
     (Optional) `data_transforms` - A list of data transformation operations to apply to the logical table. Each item of `data_transforms` as defined below.
       (Optional) `cast_column_type` - A transformation to cast a column to a new type. `cast_column_type` as defined below.
         (Required) `column` - The name of the column to cast.
-        (Required) `new_type` - The new type to cast the column to. Valid values are `STRING`, `INTEGER`, `DECIMAL`, `DATETIME`, `BOOLEAN`, `BIT`, and `JSON`.
+        (Required) `new_type` - The new type to cast the column to. Valid values are `STRING`, `INTEGER`, `DECIMAL`, and `DATETIME`.
         (Optional) `format` - The format string for date when casting a column from string to datetime type, you can supply a string in a format supported by Amazon QuickSight to denote the source data format.
       (Optional) `create_columns` - A transformation to create new calculated columns. Columns created in one such operation form a lexical closure. `create_columns` as defined below.
         (Required) `columns` - A list of calculated columns to create. Each item of `columns` as defined below.
@@ -336,6 +336,17 @@ variable "logical_tables" {
       ])
     ])
     error_message = "Only one operation for each `data_transforms` item is allowed."
+  }
+  validation {
+    condition = alltrue([
+      for table in var.logical_tables :
+      alltrue([
+        for transform in table.data_transforms :
+        contains(["STRING", "INTEGER", "DECIMAL", "DATETIME"], transform.cast_column_type.new_type)
+        if transform.cast_column_type != null
+      ])
+    ])
+    error_message = "Valid values for `cast_column_type.new_type` are `STRING`, `INTEGER`, `DECIMAL`, and `DATETIME`."
   }
   validation {
     condition = alltrue([
@@ -539,7 +550,10 @@ variable "permissions" {
   validation {
     condition = alltrue([
       for permission in var.permissions :
-      contains(["OWNER", "USER"], permission.role) || length(permission.actions) > 0
+      (permission.role != null
+        ? contains(["OWNER", "USER"], permission.role)
+        : length(permission.actions) > 0
+      )
     ])
     error_message = "Valid values for `permission.role` are `OWNER` and `USER`. If `role` is not set, then `actions` must be specified."
   }
