@@ -69,7 +69,7 @@ This module creates following resources.
 | <a name="output_column_level_permission_rules"></a> [column\_level\_permission\_rules](#output\_column\_level\_permission\_rules) | A list of column-level permission rules. |
 | <a name="output_data_set_usage"></a> [data\_set\_usage](#output\_data\_set\_usage) | The usage configuration for the data set. |
 | <a name="output_display_name"></a> [display\_name](#output\_display\_name) | The display name of the QuickSight data set. |
-| <a name="output_geo_spatial_column_groups"></a> [geo\_spatial\_column\_groups](#output\_geo\_spatial\_column\_groups) | A list of geospatial column groups in the data set. |
+| <a name="output_geo_spatial_column_groups"></a> [geo\_spatial\_column\_groups](#output\_geo\_spatial\_column\_groups) | A map of geospatial column groups in the data set. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the data set. |
 | <a name="output_import_mode"></a> [import\_mode](#output\_import\_mode) | Whether you want to import the data into SPICE. |
 | <a name="output_logical_tables"></a> [logical\_tables](#output\_logical\_tables) | A map of logical table configurations. Each entry represents a logical table in the data set. |

@@ -223,7 +223,7 @@ output "column_folders" {
 }
 
 output "geo_spatial_column_groups" {
-  description = "A list of geospatial column groups in the data set."
+  description = "A map of geospatial column groups in the data set."
   value = {
     for group in aws_quicksight_data_set.this.column_groups :
     group.geo_spatial_column_group[0].name => {
