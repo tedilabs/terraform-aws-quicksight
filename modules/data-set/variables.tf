@@ -404,7 +404,7 @@ variable "geo_spatial_column_groups" {
 
 variable "refresh_config" {
   description = <<EOF
-  (Optional) A refresh configuration for the  data set. `refresh_config` as defined below.
+  (Optional) A refresh configuration for the data set. `refresh_config` as defined below.
     (Optional) `incremental_refresh_lookback_window` - The configuration for the incremental refresh lookback window. This is used to determine how far back in time the incremental refresh should look for new or changed data. `incremental_refresh_lookback_window` as defined below.
       (Required) `column` - The column that contains the timestamp or date information to use for the lookback window.
       (Required) `size` - The size of the lookback window.
@@ -608,7 +608,7 @@ variable "tags" {
 }
 
 variable "module_tags_enabled" {
-  description = "(Optional) Whether to create AWS Resource Tags for the module informations."
+  description = "(Optional) Whether to create AWS Resource Tags for the module information."
   type        = bool
   default     = true
   nullable    = false
